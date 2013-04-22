@@ -1,0 +1,130 @@
+/*
+!important
+Styl, a w zasadzie dyrektywa, która definiuje ważniejszą deklarację stylu, unieważniającą pozostałe, jeżeli jest ich więcej w kaskadzie.
+Dyrektywa stosowana jest w kaskadach styli, gdzie trzeba wymusić styl ważniejszy, niż wynikałoby to z ich kolejności.
+*/
+
+/* Misc
+************************************************************************************************************************************/
+ol, ul {
+	list-style: none; /* lista bez kropek  */
+}
+
+/* Link styles
+************************************************************************************************************************************/
+a:link {
+	color: #e56718; /* unvisited link */
+}
+
+a:visited {
+	color: #7E441F; /* visited link */
+}
+
+a:hover {
+	color: #000; /* mouse over link */
+}
+
+a:active {
+	color: #e56718; /* selected link */
+}
+
+/*
+************************************************************************************************************************************/
+body {
+	color: #444;
+	background: #2c2928 url(../images/bg-body.jpg) repeat 0 0; /* repeat 0 0 | no-repeat | repeat-x | repeat-y */
+	font: 12px/20px Helvetica, Arial, sans-serif; /* font-size/line-height */
+}
+
+/* divom nie nadajemy float etc. - one są tylko opakowaniem - wrapperem
+   nadajemy im tylko background, width, height, margin, padding etc. */
+#header-wrap {
+	background: #373232 url(../images/bg-header.jpg) repeat-x 0 0;
+	min-width: 1000px;
+}
+
+	#header {
+		margin: 0 auto;
+		height: 149px;
+		width: 1000px;
+	}
+
+	#header .logo {
+		background: url(../images/sprite.png) no-repeat 0 -34px; /* ostatnie wartości: x, y sprite'a.png od którego ma się zacząć wyświetlanie; */
+		text-indent: -9999px; /* wyrzucamy tekst w lewo o 9999px - nie będzie go widać */
+		/* żeby działało wywalanie poza obszar musi być float: left; display: block; */
+
+		display: block; /* block - zajmuje całą szerokość */
+		height: 46px;
+		width: 252px;
+		margin-top: 33px;
+		float: left;
+	}
+
+	#header ul.main-navigation {
+		 float:left;
+		 margin: 45px 0 0 12px;
+	}
+
+		ul.main-navigation li {
+			display: block;	/* inline - w poziomie, block - w pionie (zajmuje całą szerokość) */
+			float: left; /* musi być float: left, żeby wyświetlało listę w poziomie; */
+		}
+
+			ul.main-navigation li a {
+				background: #272424;
+				color: #eeeddf;
+				display: block;
+				float: left;
+				font: MuseoSansRounded-500, Helvetica, Arial, sans-serif;
+				font-size: 12px;
+				text-decoration: none;
+				line-height: 12px;
+				margin-right: 12px;
+				padding: 7px 12px;
+				text-transform: uppercase; /* WSZYSTKO Z DUŻEJ */
+
+				/* -webkit-border-radius: 9px;
+				-moz-border-radius: 9px; */
+				border-radius: 9px;
+			}
+
+			ul.main-navigation li a.support-link {
+				background: #272424 url(../images/sprite-mini-icons.png) no-repeat 2px -129px;
+				padding-left: 28px;
+			}	
+
+			ul.main-navigation li a.twitter-link {
+				background: #272424 url(../images/sprite-mini-icons.png) no-repeat 1px -79px;
+				text-indent: -9999px;				
+			}
+
+#footer-wrap {
+	background: url(../images/bg-footer.jpg) repeat-x;
+	min-width: 1000px;
+	height: 174px;
+}
+
+	#footer {
+		margin: 0 auto;
+		width: 1000px;
+		padding-top: 60px;
+	}
+
+		#footer h1 {
+			color: #eeeddf;
+			font-size: 26px;
+			line-height: 34px;
+		}
+
+#sub-footer-wrap {
+	background: url(../images/bg-footer-sub.jpg) repeat-x 0 0;
+	font-size: 14px;
+	line-height: 26px;
+	min-width: 1000px;
+	/*overflow: hidden;*/
+}
+
+	#sub-footer {
+		width: 1000px;
+	}

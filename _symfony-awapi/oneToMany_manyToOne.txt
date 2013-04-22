@@ -1,0 +1,64 @@
+/*
+//DODAWNIE ANSWER
+        //W Question musi byæ ", cascade={"persist"}" jeœli ma to dodawaæ nowe $answers
+        
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $w = $this->getDoctrine()
+        ->getRepository('AWAPIStronaBundle:Question')
+        ->find(1);
+        
+        //$q = new Question();
+        //$q->setTitle(1);
+        //$q->setDetails(1);
+        
+        $a = new Answer();
+        $a->setText(2);
+        $a->setQuestion($w); //ALBO TO ALBO W Question addAnswer "$answers->setQuestion($this);"
+        
+        $w->addAnswer($a);
+        //$q->addAnswer($a);
+        
+        $em->persist($w); //parsowanie
+        //$em->persist($q); //parsowanie
+        $em->flush();
+        
+        die;
+//KONIEC DODAWNIE ANSWER
+*/
+/*
+//DODAWNIE ANSWER I QUESTION
+        //W Question musi byæ ", cascade={"persist"}" jeœli ma to dodawaæ nowe $answers
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $q = new Question();
+        $q->setTitle(3);
+        $q->setDetails(3);
+        
+        $a = new Answer();
+        $a->setText(3);
+        $a->setQuestion($q); //ALBO TO ALBO W Question addAnswer "$answers->setQuestion($this);"
+        
+        $q->addAnswer($a);
+        
+        $em->persist($q); //parsowanie
+        $em->flush();
+        
+        die;
+//KONIEC DODAWNIE ANSWER
+*/
+/*
+//DODAWANIE QUESTION
+
+        $em = $this->getDoctrine()->getEntityManager();
+        
+        $q = new Question();
+        $q->setTitle(2);
+        $q->setDetails(2);
+        $em->persist($q); //parsowanie
+        $em->flush();
+        
+        die;
+//KONIEC DODAWANIE QUESTION
+*/

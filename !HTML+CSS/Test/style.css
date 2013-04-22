@@ -1,0 +1,117 @@
+ul {
+    list-style: none; /* bez kropek */
+}
+
+li {
+    display: inline; /* lista poziomo */
+}
+
+ul:first-of-type li:after { /* pierwsze napodkane ul w dokumencie */
+	content: '\\'; /* !!! dodaje tekst po znaczniku a - jak uzywa sie "\" to trzeba dwa wpisac! */
+	padding: 0 5px;
+}
+
+ul:nth-of-type(1) li:nth-child(3):after { /* liczy się elementy od "1" a nie od "0" */
+	content: '';
+	padding: 0;
+}
+
+/* ----------------------------------------------------------------------- */
+
+body {
+	background: red url(bg-body.jpg) repeat 0 0;
+	font: 12px/20px Helvetica, Arial, sans-serif; /* font-size/line-height */
+}
+
+div { /* padding nie wpływa na width */
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* ----------------------------------------------------------------------- */
+
+#content-wrap, #header-wrap {
+    min-width: 1000px;
+}
+
+    #content, #header {
+        width: 1000px;
+        margin: 0 auto;
+    }
+    
+	#header a.logo {
+		background: url(sprite.png) no-repeat 0px -34px;
+		height: 46px;
+		width: 252px;
+
+		/* wywala tekst poza ekran */
+		display: block;
+		text-indent: -9999px;
+
+		text-transform: lowercase;
+	}
+
+/* ----------------------------------------------------------------------- */
+
+    article.news {
+    	background-color: green;    
+    }
+    
+		    .news h2 {
+		        text-align: center;
+
+		        background-color: blue;
+		        color: white;
+			}
+
+		    .news #meta {
+			    background-color: pink;     
+			    overflow: hidden;
+			}
+	    
+				    #meta .categories {
+				    	float: right;
+				    }
+	    
+		    .news #body {
+		    	background-color: yellow;
+				overflow: hidden; /* jeśli struktura zawiera kontenery, które nie mają width: 100%, lub ostatni nie ma clear: both; */
+				position: relative; /* względem tego diva potomkowie mogą zmieniać pozycje używając absolute */
+			}
+		    
+			        #body #thumbnail {
+			        	float: left;
+					}
+			        
+			        #body #text {
+			        	float: left;
+						width: 900px;
+			        	padding-left: 20px;
+
+			        	font-size: 110%;
+					}
+			        
+			        #body #buttons {
+			            clear: both; /* jeśli jest "clear: both" to nie musi być overflow: hidden w rodzicu; */
+			            /*position: absolute;*/ /* jeśli chcemy zmienić położenie względem rodziaca, który ma właściwość relative */
+			            /*position: relative;*/ /* jeśli chcemy zmienić położenie wzglęm siebie */
+			            top: -10px;
+			            left: -10px;
+			            /*z-index: -1;*/
+			            /*An element with fixed position is positioned relative to the browser window.*/
+
+    	                font-variant: small-caps;
+			        }
+
+/* ----------------------------------------------------------------------- */
+
+#rest {
+	color: white;
+	width: 1000px;
+	margin: 0 auto;
+}
+	
+	#rest p {
+		margin-top: 20px;
+	}

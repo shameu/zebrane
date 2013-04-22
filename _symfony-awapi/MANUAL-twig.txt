@@ -1,0 +1,126 @@
+---œciezka url
+{{ path(app.request.attributes.get('_route'), 
+        app.request.attributes.get('_route_params')) }}
+		
+href="{{ asset('css/misc.css') }}"
+
+href="{{ path('AWAPIStronaBundle_homepage') }}enable/1"
+
+--na górze ka¿dego pliku .twig
+{# src/Acme/HelloBundle/Resources/views/Hello/index.html.twig #}
+
+--do³¹czanie pliku wy¿szego rzêdu !!! do³¹cza siê ::base.html.twig, bo plik ten nie ma Bundle i nazwyControllera - jest w app/Resources...
+{% extends '::base.html.twig' %}
+
+---BLOCK - zarówno w base.html.twig jak i pliku który go uzupe³nia:
+{% block body %}{% endblock %}
+{% block stylesheet %}{% endlock %}
+zastêpuje wszystko co wpisane by³o w dany block w pliku wy¿szego rzêdu, ale jeœli chcemy dopisaæ do niego jak¹œ zawartoœæ np. dodatkowe style to dodajemy na pocz¹tku bloku:
+"{{ parent() }}"
+
+---sprawdzanie jakie przywileje ma odwiedzaj¹cy:
+{% if is_granted("ROLE_USER") %}
+{% else %}
+{% endif %}
+
+---do³¹czanie pliku twig wewn¹trz innego pliku:
+{% include "FOSUserBundle:ChangePassword:changePassword_content.html.twig" %}
+
+--- FORM
+<form {#novalidate#} action="{{ path('fos_user_change_password') }}" method="post" {{ form_enctype(form) }} id="form" {#WY£¥CZNIE WEBKIT GOOGLE CHROME#} autocomplete="off">
+
+b³êdy z forma:
+{% if form.get('errors') is not empty %}
+	<div class="form_error">
+		{{ form_errors(form) }}
+	</div>
+{% endif %}
+
+---odbieranie zmiennej z session flash:
+{% if app.session.hasFlash('awapi-notice') %}
+	<div class="info">
+		{{ app.session.flash('awapi-notice') }}
+	</div>
+{% endif %}
+
+---unixtime na date:
+<div id="stat_date">{{ miscDedRight.unixtime | date("H:i:s") }}{#| date("H:i:s - d.m.Y")#}</div>
+
+---escaping - taki addslashes dla twiga?
+
+{{ user.username|e }}
+{{ user.username|e('js') }}
+{{ user.username|e('css') }}
+{{ user.username|e('url') }}
+{{ user.username|e('html_attr') }}
+
+---'{{' w dokumencie twiga
+
+{{ '{{' }}
+
+---operacje mat
+{{ 1 + 1 }}
+{{ 2 * 2 }}
+{{ 2 ** 3 }} {# dwa do trzeciej #}
+
+---³¹czenie stringów:
+{{ "Hello " ~ name ~ "!" }}
+
+---
+{% for item in navigation %}
+	<li><a href="{{ item.href }}">{{ item.caption }}</a></li>
+{% endfor %}
+
+{% for i in range(0, 3) %}
+    {{ i }},
+{% endfor %}
+
+{{ a_variable }}
+{{ foo.bar }}
+{{ foo['bar'] }}
+{{ attribute(foo, 'data-foo') }} {# equivalent to the non-working foo.data-foo #}
+
+{% set foo = 'foo' %}
+{% set foo = [1, 2] %}
+{% set foo = {'foo': 'bar'} %}
+
+{# and or xor / not #}
+{% if users|length > 0 %}
+{% endif %}
+
+{% include 'sidebar.html' %}
+
+{# returns true #}
+{{ 1 in [1, 2, 3] }}
+{{ 'cd' in 'abcde' }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

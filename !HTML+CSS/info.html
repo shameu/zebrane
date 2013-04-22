@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
+	<title>Document</title>
+	<link rel="stylesheet" href="">
+	<style>
+
+		/*
+		first-child
+		nth-last-child(2)
+		*/
+
+		body {
+			font-family: sans-serif; /* czyli helvetica, arial */
+		}
+
+		#second li:nth-child(4) {
+			color: orange;
+			list-style: none;
+		}
+
+		ul:first-of-type li:nth-child(4) {
+			color: pink;
+		}
+
+		ul#menu li {
+			display: inline; /* lista poziomo, a nie w pionie! */
+		}
+
+		label {
+			display: block; /* block - obejmuje całą szerokość, inline - domyślna wartość */
+		}
+
+		h1#logo {
+			background: url(logo.png) no-repeat; /* repeat-x */
+			display: inline; /* wielkość tyle ile trzeba */
+			text-indent: -9999px; /* chowa tekst */
+			width: 156px;
+			height: 66px;
+		}
+
+		/*
+		text-transform: uppercase;
+		text-shadow: 0 1px 0 white;
+		text-shadow:
+			5px 0 1px white,
+			6px 0 2px red;
+		font-variant: smallcaps;
+		*/
+
+		a:after {
+			content: '\\'; /* !!! dodaje tekst po znaczniku a - jak uzywa sie "\" to trzeba dwa wpisac! */
+			padding: 0 5px;
+		}
+
+	</style>
+</head>
+<body>
+
+<h1 id="logo">LOGO STRONY</h1>
+
+<h1>MENU:</h1>
+<ul id="menu">
+	<li>HOME</li>
+	<li>ABOUT</li>
+	<li>CSS</li>
+	<li>HTML</li>
+</ul>
+
+// 2
+<!-- 
+<em> służy do oznaczenia fragmentu tekstu który chcemy zaakcentować. - pochylenie
+<strong> - pogrubienie
+<ol> - lista numerowana
+ -->
+<ul id="first">
+	<li> &lt;ol&gt;lista</li>
+	<li>asd</li>
+	<li>zxc</li>
+	<li>CZERWONE</li>
+	<li>ter</li>
+</ul>
+
+<ul id="second">
+	<li> &lt;ol&gt;lista</li>
+	<li>asd</li>
+	<li>zxc</li>
+	<li>CZERWONE</li>
+	<li>ter</li>
+</ul>
+	
+<p>DEFINITION LIST:<br />
+	<dl>
+		<dt>asd</dt> <!-- deteterms -->
+		<dd>zxc</dd> <!-- details -->
+	</dl>
+</p>
+
+<p>SPAN się używa tylko po to żeby dodać tam np. styl</p>
+
+<p><h6>max h6</h6></p>
+
+<p>blockquote - nic nie robi, ale opisuje ze to cytat!<br /></p>
+<blockquote>
+	<p style="color: rgb(100,200,400);"> <!-- rgba, hsl -->
+		lorem20
+	</p>
+</blockquote>
+
+<p><img src="" alt="OBRAZEK" /></p> Zawsze trzeba stosować ALT!
+
+<p>id (#) w CSS powinno się stosować dla pojedybczego elementu, jeśli chcemy kilka zmienić powinno się stosować klasy (.)</p>
+
+<p>
+	<ul>
+		<li>aside - po boku (sidebar np.)</li>
+		<li>footer</li>
+		<li>nav</li>
+		<li>header</li>
+		<li>section</li>
+		<li></li>
+	</ul>
+</p>
+
+<p>
+	<ul>
+		<li>divy obok siebie: oba float: left</li>
+		<li>min-width: xxx</li>
+		<li>footer style="clear: both; - w ostatnim kontenerze robi TO SAMO ROBI overflow:hidden w divie nadrzędnym do tych z float!"</li>
+		<li>label for="name"; input id="name" name="nazwa ktora bedzie w POST/GET"</li>
+		<li>textarea rows="" cols="" ALBO textarea { width: 123, height: 345 }</li>
+		<li>type="checkbox" name="costam" - zwraca w GET/POST costam=on tylko jesli zaznaczone bylo</li>
+		<li>type="radio"</li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</p>
+
+<p>	
+	position: relative; <!-- pozycja w stosunku do siebie samego -->
+	position: absolute; <!-- pozycja w stosunku do rodzica, który ma wartość position: relative; -->
+</p>
+
+<p>
+	margin: 20px 10px 25px; <!-- top: 20px; letf,right: 10px, bot: 25px -->
+</p>
+
+<p>
+	div domyślnie ma "display: block;" i przez to zajmuje całą powierzchnię, nawet jak ma float: right np.
+	i trzeba zmiejszyć width
+</p>
+
+<p>
+	<a href="#" class="meta">Costam</a>
+	<a href="#" class="meta">Ktostam</a>
+</p>
+
+<p>
+	line-height
+</p>
+
+<p>
+	WALIDACJA - sprawdzanie poprawności napisanej strony: http://validator.w3.org/
+</p>
+
+<p>
+	RESET STYLESHEET:
+	http://meyerweb.com/eric/tools/css/reset/
+</p>
+
+<p>
+	NORMALIZE CSS:
+	http://necolas.github.com/normalize.css/
+</p>
+
+<p>
+	css framework:
+	http://960.gs/ - mozna wykorzystywać przygotowane GRIDY z ilością kolumn
+	<br />
+	1140 ew. 1120 w nowych mozna
+	<br />
+	div class="container_12"
+	<br />
+	div class="grid_5" etc.
+	<br />
+	w frameworku 960px jest klasa clearfix, ktora ogarnia sprawę overflow:hidden, clear: both etc.
+	<br />
+	w 960 jest też coś takiego jak alpha omega - .alpha robi margin-left: 0, .omega margin-right: 0 - używa się przy skrajnych grid_numer
+</p>
+
+<p>
+	jeśli chcmy wykorzystać w divie np. 2 klasy z css robimy: div class="jedna druga"
+</p>
+
+<p>
+	JEŚLI CHCEMY, ŻEBY padding nie wpływał na width:
+	<br />
+	section: {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box
+	} <!-- content-box jest domyślnie -->
+</p>
+
+<p>
+	themeforest.net
+</p>
+
+</body>
+</html>

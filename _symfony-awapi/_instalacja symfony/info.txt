@@ -1,0 +1,29 @@
+/********************* APC 
+http://www.leonardaustin.com/technical/install-apc-on-xampp
+
+This is how I installed APC on Xampp on Windows 7
+
+    Download php_apc-3.1-svn20101116-5.3-vc6-x86.zip (Direct link : http://downloads.php.net/pierre/php_apc-3.1-svn20101116-5.3-vc6-x86.zip)
+    Copy php_apc.dll to C:\xampp\php\ext
+    Open php.ini (C:\xampp\php\php.ini) and add extension=php_apc.dll
+
+I also needed to change a couple of settings inside apache.
+
+    Go to the directory of installation\apache\conf
+    Open and edit httpd.conf in a text editor
+    Find all occurrences of
+
+    AllowOverride None
+
+    and change to
+
+    AllowOverride All
+
+    I think it appears 2 or 3 times on the configuration file.
+    Reset Apache
+
+Should work for you as well.
+
+/******************* INTL
+
+extension=php_intl.dll w php.ini

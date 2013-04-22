@@ -1,0 +1,6 @@
+[Lekcja #15] Kurs PHP - debugowanie aplikacji 
+
+die('pierwszy');
+\n - nowa linia
+
+Symfony + html + php - checkboxy o tej samej nazwie np: <input type="checkbox" name="sub_active[]" value="{{ sub.id }}" przekazane POSTEM jako "sub_active[]" s¹ odbierane jako tablica sub_active

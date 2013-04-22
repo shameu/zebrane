@@ -1,0 +1,196 @@
+SPIS TEGO CZEGO ZAWSZE UŻYWAĆ / PAMIĘTAC TWORZĄC SKRYPTY:
+
+namespaces,
+PHPDoc
+// jeśli tworzy się obiekty klasy to przyjmuje się, że pierwsza powinna być z dużej.
+// dostęp z obiektu do atrybutów w klasie powinien być zazwyczaj poprzez settery i gettery
+// WAŻNE!!! - zmienne i funkcje prywatne zawsze powinny mieć przed nazwą _
+// stałe powinno się deklarować z dużej litery, nie można zmieniać wartości, a dostęp jest do niej jak do zmiennej ale bez "$"
+
+//-----------------------------------
+
+PHP CONVENTIONS:
+
+class TestThing
+{
+    public $objectProperty;
+
+    public function methodName() {
+    }
+}
+
+function function_name( $argument = null ) {
+}
+
+$variable_name = 'hi'; //Non-object
+$TestThing = new TestThing; //Object
+
+
+//-----------------------------------
+
+// print_r() - wyświetla wszystko w jednej linii
+// pp() - wyświetla print_r() w znacznikach <pre> - tak jak print_r() w konsoli
+// var_dump() - wyświetla typ zmiennej i jej długość
+
+//-----------------------------------
+
+deklaracja to stworzenie zmiennej (danego typu)
+inicjalizacja - przypisanie zadeklarowanej zmiennej wartości
+
+//-----------------------------------
+
+dobrze jest zrobić klasę HTML, do której moża się łatwo odwoływać do zmiennych statycznych które będą zwracać kod html np. tworzący linki etc.
+<?= HTML::anchor($link, $text); .... itd.
+
+//-----------------------------------
+
+Najlepiej rozbić stronę na np header.php (wraz z <div id="container">) i footer.php (wraz z </div>), (katalog _partials) i zaincludować je w index.tmpl.php (katalog views z widokiem dla HTML ew. JS)
+W index.php zaincludować index.tmpl.php na dole, u góry functions.php a pośrodku wywołania funkcji
+
+//-----------------------------------
+
+Przełączanie się między Przeglądarką a Sublime Text 2:
+alt+tab
+
+//-----------------------------------
+
+skrót CLI - command line
+
+konsola widndows - windows+r -> cmd
+
+komenda "cat" - Mac / "ls" w konsoli listuje zawartosc pliku
+
+komenta "touch" w konsoli tworzy pliki
+
+php -v // wyświetla wersję PHP w konsoli
+w PHP 5.3 tablice trzeba robić: array('raz', 'itd');
+w PHP 5.4 można ['raz', 'dwa', 'etc...']
+
+php -h // w konsoli - lista możliwości
+php -a (Run interactively) // konsola PHP w której można wpisywać wszystko (np. echo 'asd';) zamiast przez HTML
+(W windows ctrl+c - wyjście) i można pisać w php
+
+Warto się nauczyć VIMA, tak samo można odpalać pliki w czasie rzeczywistym jak PHPExecute - 9-Testing-Scripts.mov + uw-team:
+w VIMIE:
+:! clear
+:! ls - listowanie plikow
+:!php index.php
+:!php % - aktualny plik
+:!php !clear && php %
+:map ,p :!php !clear && php %<cr> - po wpisaniu ,p odpali skrypt tak jak powinno
+
+//-----------------------------------
+// KONSOLA DLA PHP
+
+!! NIE DZIAŁA POD WINDOWSEM oO - odinstalować reszte
+phpsh.org - shell PHP stworzony przez FaceBooka - używa Pythona także żeby działało pod Windowsa trzeba zainstalować "http://www.python.org/download/"
+nie działa "python" w cmd: windows + PAUSE -> Zaawansowane ustawienia -> zmienne środowiskowe -> zmienne uż -> nowa -> "PATH" poniżej ";C:\python27"
+windows+r = uruchom -> cmd
+instalacja: https://github.com/facebook/phpsh:
+python setup.py build
+
+instalacja shella PHP dla WINDOWS "http://jan.kneschke.de/2007/2/16/php-shell/":
+pobrać, pear install PHP_Shell-0.3.1.tgz
+potem w konsoli "php-shell.bat "
+">> ?
+    print this help
+  >> ? <topic>
+    get the doccomment for a class, method, property or function
+  >> p <var>
+    execute a verbose print (if implemented)
+  >> quit
+    leave shell "
+
+? <funkcja>() - wyświetla info o funkcji etc.
+
+ew.
+PHP_Shell-0.3.1.tgz
+
+//-----------------------------------
+
+nie trzeba zamykać ?> jeśli cały plik jest w php
+
+exit("exit");, die("die"); - oba robią to samo
+
+ZAWSZE JAK NAJMNIEJ PHP między HTML'a - najlepiej PHP przed <html> dawać
+w widoku lepiej stosować "foreach(...): endforeach;" - mniej miejsca zajmuje
+
+nazwy zmiennych (konwencja) - java mojaZmienna, php moja_zmienna
+
+<?= $tablica[0]; ?> ZAMIAST <?php echo $tablica[0]; ?> - "short_open_tag = On" w php.ini - od PHP 5.4 zawsze włączone!
+
+# KOMENTARZ - tak też jest - zapomniałem już oO
+
+Printf warto stosować jeśli nie wiemy jakie wartości przypisze użytkownik do zmiennej, a nie chcemy np. żeby liczba była stringiem itd.
+
+// funkcje - krótkie (można je łatwo modyfikować) i zwracające wartości (return) - UNIKAĆ echo w funkcji
+// powinny robić tylko i wyłącznie jedną rzecz
+
+czasem warto najpierw napisać odwołanie do funkcji, a potem stworzyć funkcję - lepiej zorientujemy się co chcemy osiągnąć
+
+//-----------------------------------
+
+lepiej wyświetlać '<p>'.$zmienna.'</p>' niż po zmiennej <br />
+
+
+$arr = array(
+	'imie' => 'Bartek',
+	'wiek' => 12,
+	'hobby' => 'LOL'
+);
+
+// print_r($arr); // Array ( [imie] => Bartek [wiek] => 12 [hobby] => LOL )
+// var_dump($arr); // troszkę bardziej przejrzyście - tzn. pokazuje typ zmiennej, ilość znaków itd.
+
+/*Znacznik <pre> służy do wyświetlenia bloku tekstu z zachowaniem jego oryginalnego formatowania,
+czyli z zachowaniem formatowania wykonanego za pomocą spacji i znaków przejścia do nowej linii.
+Dodatkowo tekst umieszczony wewnątrz znacznika <pre> jest wyświetlany czcionką o stałej szerokości znaków, ale
+$foo = '<pre>dwie \n linijki</pre>' - nie wyświetli tekstu w osobnych liniach */
+
+/*echo '<pre>';
+print_r($arr); // z <pre> przejrzyste wyświetlenie - widok jak bez <pre>, ale ze zrodla
+echo '</pre>';*/
+
+//-----------------------------------
+
+<p>To jest <code> tag</p> - wyświetli "To jest tag"
+<p>To jest &lt;code&gt; tag</p> - wyświetli OK.
+<p>To jest <?= htmlspecialchars('<code>'); ?> tag</p> - wyświetli OK
+
+// jesli szukamy funkcji php wystarczy wpisać w adresie:
+// http://php.net/<nazwa funkcji>
+
+// Dane pobierane z GET/POST przefiltrować "htmlspecialchars()" - zamiana < na &lt; itd.
+
+// domyślna "method" w formularzu to "get"
+
+// 1)
+// if( !empty($_POST) ) - normalnie tablica $_POST jest pusta
+// 	print_r($_POST);
+
+// 2)
+// if( isset($_POST['contactForm']) ) {x}
+
+// 3) stosować jeśli na stronie jest tylko jeden formularz i użwamy w nim POST
+// echo $_SERVER['REQUEST_METHOD']; // wyświetla POST - normalnie bez formularza wyświetli GET
+
+//-----------------------------------
+
+// $email = "<h1>$post['title']</h1>"; // - BŁĄD!
+// $email = "<h1>{$post['title']}</h1>"; // - TAK JEST OK - Z {}
+
+//-----------------------------------
+
+MYSQL : LIKE "_r%"' - _ oznacza dowolny znak
+
+// %20 - to jest spacja w pasku adresu
+// ctrl+u - dostęp szybki do zrodla
+
+//-----------------------------------
+
+\r\n are end of line characters for Windows systems.
+\n is the end of line character for UNIX systems.
+
+//-----------------------------------
+
+$_COOKIE[''] to to samo co $GLOBALS['_COOKIE']

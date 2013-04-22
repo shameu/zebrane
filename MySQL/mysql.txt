@@ -1,0 +1,216 @@
+1)
+
+!!! GROUP_CONCAT:
+http://dev.mysql.com/doc/refman/5.0/en/group-by-functions.html#function_group-concat
+
+//-----------------------------------
+
+logowanie:
+mysql -h localhost -u root -p
+
+//-----------------------------------
+
+logowanie bez hasła na localhost:
+mysql
+
+set password for root@localhost = password('tutsplus');
+
+//-----------------------------------
+
+source S:\Pdf's\kurs_mysql_uw_team\2\nauka.sql; - import, ścieżka zła ale jakoś tak
+
+//-----------------------------------
+
+CREATE DATABASE nauka;
+DROP DATABASE nauka;
+
+SHOW databases;
+SHOW tables;
+
+USE <tabela>;
+
+DESC <tabela>; // to samo:
+DESCRIBE <tabela>;
+
+TRUNCATE dzialy; 	- czyści tabele
+DROP table dzialy; 	- usuwa tabele
+
+//-----------------------------------
+
+/*
+int
+varchar(x) - 0-255
+datetime
+date
+text (powyżej 255 znaków)
+*/
+
+CREATE table pracownicy(id int auto_increment, imie varchar(20), nazwisko varchar(20), dzial int, zarobki int, primary key(id));
+
+INSERT INTO pracownicy values(null, 'Jan', 'Nowak', 1, 2500);
+INSERT INTO pracownicy (imie, nazwisko) values ('Tomek', Baginski);
+
+//-----------------------------------
+
+INSERT into student_back SELECT nazwisko,imie,indeks FROM student;
+
+//-----------------------------------
+
+Instrukcja SELECT służy do dostępu do danych.
+SELECT lista pól 
+[INTO nowa tabela]
+FROM lista tabel
+[WHERE warunki przeszukiwania]
+[GROUP BY wyrażenie grupujące]
+[HAVING warunek przeszukiwania]
+[ORDER BY warunki sortujące [ASC | DESC] ]
+ASC - ascending
+DESC - descending
+
+
+Klauzula SELECT – słowa kluczowe
+ALL – określa czy w wyniku wykonania zapytania mogą wystąpić powtarzające się wiersze – jest wartością domyślną.
+DISTINCT – eliminuje z wyniku zapytania powtarzające się wiersze, wartości typu NULL są traktowane jako równe.
+TOP(PERCENT) – określa liczbę (procent) wierszy jakie mają się znaleźć w wyniku zapytania.
+WITH TIES – używane łącznie z klauzulą ORDER BY oraz słowem kluczowym TOP lub PERCENT, oprócz określonej liczby podstawowych wierszy zwracanych w wyniku zapytania pojawiają się dodatkowe wiersze mające tą samą wartość atrybutów, określonych klauzulą ORDER BY, co podstawowe wiersze wyniku zapytania.
+IDENTITYCOL – właściwość kolumny pozwalająca na automatyczne generowanie klucza podczas wstawiania nowego wiesza. 
+
+
+
+SELECT * FROM pracownicy;
+
+SELECT imie,nazwisko FROM pracownicy;
+
+SELECT * from pracownicy WHERE imie='Adam' AND nazwisko='Kowalski';
+
+SELECT * FROM pracownicy WHERE zarobki > 2000;
+
+SELECT sum(zarobki) FROM pracownicy;
+
+SELECT sum(zarobki) as ile FROM pracownicy;
+
+SELECT avg(zarobki) as srednio FROM pracownicy;
+
+SELECT count(1) FROM pracownicy;
+
+SELECT avg(zarobki) as ile FROM pracownicy WHERE zarobki > 2000;
+
+SELECT imie, nazwisko FROM pracownicy WHERE imie LIKE '%a';
+
+SELECT * FROM pracownicy WHERE zarobki BETWEEN 1000 and 3000;
+
+SELECT imie,nazwisko FROM pracownicy WHERE id IN(2,4,8);
+
+SELECT * FROM dni ORDER BY field(id,3,7,1,6,4,2,5); - sortowanie danych po nietypowych polach
+
+
+//----------------------------------------------------------------
+// ŁĄCZENIE TABEL:
+//----------------------------------------------------------------
+
+WAŻNE!!!
+wzór na ilość warunków łączących tabele: n-1, n-liczba laczonych tabel
+
+SELECT imie,nazwisko,nazwa FROM pracownicy,dzialy WHERE dzial=numer;
+
+łączenie tabel:
+SELECT nazwa, round(avg(zarobki),2) as srednia FROM dzialy, pracownicy WHERE dzial=numer GROUP BY nazwa;
+
+//-----------------------------------
+// Klauzula HAVING wykonywana jest zaraz po grupowaniu więc można jej użyć do przefiltrowania wyników już zgrupowanych.
+// Klauzula WHERE jest wykonywana jeszcze przed grupowaniem więc nie da się osiągnąć tego efektu bez użycia HAVING.
+//-----------------------------------
+
+SELECT nazwa, round(avg(zarobki),2) as srednia FROM dzialy, pracownicy WHERE dzial=numer GROUP BY nazwa HAVING srednia > 3000;
+
+Łączenie zapytań z tej samej tabeli:
+SELECT a.imie as imieSzefa, a.nazwisko as nazwiskoSzefa, b.imie, b.nazwisko from pracownicy a, pracownicy b WHERE b.szef=a.id;
+
+//-----------------------------------
+// JOIN
+//-----------------------------------
+
+SELECT * FROM pracownicy JOIN dzialy on pracownicy.dzial = dzialy.numer;
+
+--
+
+JOIN = INNER JOIN
+
+LEFT [OUTER] / RIGHT [OUTER] - Zwraca całą zawartość tabeli lewej/prawej - wraz z wartościami NULL
+LEFT JOIN and RIGHT JOIN are shorthand for LEFT OUTER JOIN and RIGHT OUTER JOIN
+FULL JOIN (FULL OUTER JOIN) - nie ma w MySQL
+
+CROSS JOIN – Tworzony jest iloczyn kartezjański (wszystkie możliwości połączenia) dwóch tabel. W wyniku zapytania zwracane są wiesze w taki sposób jak gdyby tabele nie były by połączone żadnym warunkiem klauzuli WHERE
+
+//----------------------------------------------------------------
+// Tworzenie tabeli przez zapytanie:
+//----------------------------------------------------------------
+
+!!!kopia tabeli:
+create table dzial1 as SELECT * FROM pracownicy WHERE dzial=1;
+
+delete from dzial1 where id=2; - tabela dzial1 jest kopią i operacja na niej wykonywane nie mają powiązania z tabelą pracownicy
+
+!!!widok tabeli:
+zmiana w jednej ma skutek w drugiej
+CREATE view dzial2 as SELECT id,imie,nazwisko,zarobki FROM pracownicy;
+
+//-----------------------------------
+
+UPDATE pracownicy SET dyzur=id;
+
+UPDATE pracownicy SET dzial=2 WHERE id=3;
+
+//----------------------------------------------------------------
+// Rozbudowywanie tabeli:
+//----------------------------------------------------------------
+
+ALTER table pracownicy ADD dyzur int after nazwisko;
+
+//----------------------------------------------------------------
+// Zapytania zagniezdzone:
+//----------------------------------------------------------------
+
+SELECT avg(zarobki) FROM pracownicy;
+
+ŹLE!: FUNKCJA GRUPUJĄCA (avg) nie może być użyta w warunku!
+SELECT avg(zarobki) FROM pracownicy WHERE zarobki>avg(zarobki);
+
+DOBRZE: robi się osobno jedno zapytanie i drugie i łączy je:
+SELECT * FROM pracownicy WHERE zarobki >= (SELECT avg(zarobki) FROM pracownicy);
+
+pracownicy z dzialu2, którzy zarabiaja wiecej niż jakikolwiek pracownik z działu1:
+SELECT zarobki FROM pracownicy WHERE dzial=1;
+W przypadku zapytań z "większe lub równe nie można stosować podzapytań zwracających więcej niż 1 wiersz! W przypadku avg - wynik jest jeden, a tak jak zapytanie powyżej jest kilka wyników, czyli ŹLE!:
+SELECT * from pracownicy WHERE zarobki > (SELECT zarobki FROM pracownicy WHERE dzial=1);
+wystarczy dopisać "niż wszystkie" - all()
+SELECT * from pracownicy WHERE zarobki > all(SELECT zarobki FROM pracownicy WHERE dzial=1);
+
+zamiast all, można też stosować "any" - czyli jakikolwiek 
+
+//----------------------------------------------------------------
+// Optymalizacja
+//----------------------------------------------------------------
+
+SHOW TABLE STATUS\G;
+SHOW CREATE TABLE <tabela>
+
+
+SELECT sql_no_cache count(1) FROM duzatabelka WHERE cena>10000 and cena<30000;
+EXPLAIN SELECT sql_no_cache count(1) FROM duzatabelka WHERE cena>10000 and cena<30000\G; - info na temat zapytania - indeksy etc.
+
+create index poCenie on duzatabelka(cena);
+create index szybki on duzatabelka(cena,kod); - kolejność pól ma znaczenie - ma być taka sama jak kolejność w zapytaniu!
+drop index poCenie on duzatabelka;
+
+SELECT sql_no_cache id from duzatabelka where opis like '%ipoiliev%';
+create fulltext index poOpisie on duzatabelka(opis);
+SELECT sql_no_cache id from duzatabelka where match(opis) against('ipoiliev');
+
+//----------------------------------------------------------------
+// Foreign Key
+//----------------------------------------------------------------
+
+foreign key - przy Relations tabs - Chodzi oto, że np. jeśli są ze sobą powiązane tabele np. users.id z orders.user_id, to przy usunięciu użytkownika powinny również się usuwać jego pola z orders
+
+mysql> ALTER TABLE `orders` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;

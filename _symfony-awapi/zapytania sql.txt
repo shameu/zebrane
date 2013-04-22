@@ -1,0 +1,3 @@
+tylko z subs - SELECT `subs`.`id` FROM `subs` JOIN `gg_users_subs` ON (gg_users_subs.`id_subs` = subs.`id`) JOIN `gg_users` ON (`gg_users`.id = gg_users_subs.`id_gg_users`) WHERE `gg_users`.id = 22
+wszystkie - SELECT `gg_users_subs`.`id` FROM `gg_users_subs` JOIN `gg_users` ON (`gg_users`.`id` = `gg_users_subs`.`id_gg_users`) WHERE `gg_users`.id = 22
+tylko z kat telefony/tablety/laptopy - SELECT `id_subs` FROM `gg_users_subs` WHERE `id_subs` < 0 AND `id_gg_users` = 18

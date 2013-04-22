@@ -1,0 +1,11 @@
+[instrukcja w pdf: http://symfony.com/pdf/Symfony_quick_tour_2.1.pdf]
+
+1) git z symfony 2 [do momentu $ git commit -m "Initial commit" (wraz z nim)]:
+http://symfony.com/doc/current/cookbook/workflow/new_project_git.html
+
+2) http://symfony.com/doc/current/book/installation.html
+-http://getcomposer.org/download/
+-instalacja z "Composer-Setup.exe"
+-Przekopiowaæ plik z C:/ProgramData/Composer/composer.phar do katalogu Symfony z composer.json
+-$ php composer.phar install w konsoli
+

@@ -1,0 +1,221 @@
+﻿'search-string' => ''.$key.' -uszkodzony -uszkodzone -uszkodzona -upadl -upadku -utopiony -zalany -rozlany -zalaniu -dual -dualsim -appele -sciphone -dokująca -atrapa -replika -dziecko -męża -żonę -helicopter -złoto -podsłuch -spy -kontrola -bezpieczne -szpieguj -zdrada -wiern -wymiana -abonament -płyta -taryfa -kod -części -płyta -naprawy -uratowania -chiński -chiny -chińską -podróbka -podrobka -grzecznościowa -grzecznosciowa -uzytkownika -użytkownika -prywatna -naprawa -wadą -wada -sprawdzona', //string
+
+DELETE FROM `aukcje_zakonczone165` WHERE `s_it_name` LIKE '%uszkodzony%' 
+OR `s_it_name` LIKE '%uszkodzone%' 
+OR `s_it_name` LIKE '%uszkodzona%' 
+OR `s_it_name` LIKE '%upadl%' 
+OR `s_it_name` LIKE '%upadku%' 
+OR `s_it_name` LIKE '%utopiony%' 
+OR `s_it_name` LIKE '%zalany%' 
+OR `s_it_name` LIKE '%rozlany%' 
+OR `s_it_name` LIKE '%zalaniu%' 
+OR `s_it_name` LIKE '%dual%' 
+OR `s_it_name` LIKE '%dualsim%' 
+OR `s_it_name` LIKE '%appele%' 
+OR `s_it_name` LIKE '%sciphone%' 
+OR `s_it_name` LIKE '%dokująca%' 
+OR `s_it_name` LIKE '%atrapa%' 
+OR `s_it_name` LIKE '%replika%' 
+OR `s_it_name` LIKE '%dziecko%' 
+OR `s_it_name` LIKE '%męża%' 
+OR `s_it_name` LIKE '%żonę%' 
+OR `s_it_name` LIKE '%helicopter%' 
+OR `s_it_name` LIKE '%złoto%' 
+OR `s_it_name` LIKE '%podsłuch%' 
+OR `s_it_name` LIKE '%spy%' 
+OR `s_it_name` LIKE '%kontrola%' 
+OR `s_it_name` LIKE '%bezpieczne%' 
+OR `s_it_name` LIKE '%szpieguj%' 
+OR `s_it_name` LIKE '%zdrada%' 
+OR `s_it_name` LIKE '%wiern%' 
+OR `s_it_name` LIKE '%wymiana%' 
+OR `s_it_name` LIKE '%abonament%' 
+OR `s_it_name` LIKE '%płyta%' 
+OR `s_it_name` LIKE '%taryfa%' 
+OR `s_it_name` LIKE '%kod%' 
+OR `s_it_name` LIKE '%części%' 
+OR `s_it_name` LIKE '%płyta%' 
+OR `s_it_name` LIKE '%naprawy%' 
+OR `s_it_name` LIKE '%uratowania%' 
+OR `s_it_name` LIKE '%chiński%'
+OR `s_it_name` LIKE '%chiny%' 
+OR `s_it_name` LIKE '%chińską%'
+OR `s_it_name` LIKE '%podróbka%' 
+OR `s_it_name` LIKE '%podrobka%' 
+OR `s_it_name` LIKE '%grzecznościowa%' 
+OR `s_it_name` LIKE '%grzecznosciowa%' 
+OR `s_it_name` LIKE '%uzytkownika%' 
+OR `s_it_name` LIKE '%użytkownika%' 
+OR `s_it_name` LIKE '%prywatna%' 
+OR `s_it_name` LIKE '%naprawa%' 
+OR `s_it_name` LIKE '%wadą%' 
+OR `s_it_name` LIKE '%wada%' 
+OR `s_it_name` LIKE '%sprawdzona%'
+
+ten:
+
+SELECT * FROM `aukcje_zakonczone165` WHERE `s_it_name` LIKE '%uszkodzony%' 
+OR `s_it_name` LIKE '%uszkodzon%'  
+OR `s_it_name` LIKE '%upad%' 
+OR `s_it_name` LIKE '%utop%' 
+OR `s_it_name` LIKE '%rozlan%' 
+OR `s_it_name` LIKE '%dual%' 
+OR `s_it_name` LIKE '%appele%'  
+OR `s_it_name` LIKE '%dokuj%' 
+OR `s_it_name` LIKE '%atrap%' 
+OR `s_it_name` LIKE '%repl%' 
+OR `s_it_name` LIKE '%dziecko%' 
+OR `s_it_name` LIKE '%męża%' 
+OR `s_it_name` LIKE '%żonę%' 
+OR `s_it_name` LIKE '%heli%' 
+OR `s_it_name` LIKE '%złoto%' 
+OR `s_it_name` LIKE '%podsłuch%' 
+OR `s_it_name` LIKE '%podsluch%' 
+OR `s_it_name` LIKE '%spy%' 
+OR `s_it_name` LIKE '%kontrol%' 
+OR `s_it_name` LIKE '%bezpiecz%' 
+OR `s_it_name` LIKE '%szpieg%' 
+OR `s_it_name` LIKE '%zdrad%' 
+OR `s_it_name` LIKE '%wiern%' 
+OR `s_it_name` LIKE '%wymian%' 
+OR `s_it_name` LIKE '%abonam%' 
+OR `s_it_name` LIKE '%płyt%' 
+OR `s_it_name` LIKE '%taryf%' 
+OR `s_it_name` LIKE '%kod%' 
+OR `s_it_name` LIKE '%części%'
+OR `s_it_name` LIKE '%czesci%'
+OR `s_it_name` LIKE '%płyt%' 
+OR `s_it_name` LIKE '%naprawy%'
+OR `s_it_name` LIKE '%naprawa%' 
+OR `s_it_name` LIKE '%uratowan%' 
+OR `s_it_name` LIKE '%hiny%' 
+OR `s_it_name` LIKE '%chińsk%'
+OR `s_it_name` LIKE '%podróbk%' 
+OR `s_it_name` LIKE '%podrobk%' 
+OR `s_it_name` LIKE '%grzecznościow%' 
+OR `s_it_name` LIKE '%grzecznosciow%' 
+OR `s_it_name` LIKE '%uzytkownik%' 
+OR `s_it_name` LIKE '%użytkownik%' 
+OR `s_it_name` LIKE '%prywatna%' 
+OR `s_it_name` LIKE '%naprawa%'  
+OR `s_it_name` LIKE '%sprawdzon%'
+LIMIT 10000
+
+DELETE aukcje_zakonczone165_param.* FROM aukcje_zakonczone165_param LEFT JOIN aukcje_zakonczone165 ON (aukcje_zakonczone165_param.`s_it_id` = aukcje_zakonczone165.`s_it_id`) WHERE aukcje_zakonczone165.`s_it_id` IS NULL
+
+---- test
+
+SELECT avg(`s-it-price`), COUNT(*)  FROM `aukcje_zakonczone` WHERE `s-it-category-id` = 53980
+
+SELECT * FROM `aukcje_zakonczone` WHERE `s-it-category-id` = 53980 ORDER BY `s-it-price` limit 10000
+
+---- za dużo pozycji w aukcje_zakonczone: (samsung pozostałe itd)
+
+SELECT `uid`, `s_it_category_id`, avg(s_it_buy_now_price), count(*) as count  FROM `aukcje_zakonczone165` WHERE `s_it_category_id` IN (SELECT DISTINCT `s_it_category_id` FROM `aukcje_zakonczone165`) AND `uid` IN (SELECT DISTINCT `uid` FROM `aukcje_zakonczone165`) group by `uid`, `s_it_category_id` order by count DESC LIMIT 10000
+
+----
+
+sporo pozycji w bazie pochodzi z kategorii inne itd które są pomijane przez awapiJournal w map.h:
+
+//kategorie ogólne dla przedmiotów - bez dalszych podziałów, a z przedmiotami (telefonami) o różnych modelach
+//OBECNIE UŻYWANA JAKO KATEGORIE, KTÓRE MAJĄ ZOSTAĆ POMINIĘTE PRZY KLASYFIKACJI
+/* TELEFONY */
+    map_catnames_for_catid[170] =	"Inne Marki";		//Telefony komórkowe  ›  Inne marki
+    map_catnames_for_catid[85889] =	"Zestawy";			//Telefony komórkowe  ›  Zestawy
+
+    map_catnames_for_catid[4937] =	"Alcatel";			//Alcatel
+    map_catnames_for_catid[75538] =	"Blackberry";		//Blackberry  ›  Pozostałe
+    map_catnames_for_catid[16619] =	"HTC";				//HTC  ›  Inne modele
+    map_catnames_for_catid[14432] =	"LG";				//LG  ›  Inne modele
+    map_catnames_for_catid[4976] =	"Motorola";		//Motorola  ›  Inne modele
+    map_catnames_for_catid[70581] =	"myPhone";			//myPhone  ›  Inne modele
+    map_catnames_for_catid[5006] =	"Nokia";			//Nokia  ›  Inne modele
+    map_catnames_for_catid[322] =	"Sagem";			//Sagem
+    map_catnames_for_catid[5015] =	"Samsung";			//Samsung  ›  Inne modele
+    map_catnames_for_catid[5021] =	"Siemens";			//Siemens
+    map_catnames_for_catid[121187] = "Sony";            //Sony › Inne modele
+    map_catnames_for_catid[5045] =	"Ericsson";		//Sony Ericsson  ›  Inne modele
+
+    map_catnames_for_catid[75557] =	"Apple";		//uszkodzone-apple-75557
+    map_catnames_for_catid[52426] =	"Benq";			//uszkodzone-benq-siemens-52426
+    map_catnames_for_catid[70569] =	"HTC";				//uszkodzone-htc-spv-70569
+    map_catnames_for_catid[51000] =	"LG";				//uszkodzone-lg-51000
+    map_catnames_for_catid[51001] =	"Motorola";		//uszkodzone-motorola-51001
+    map_catnames_for_catid[51002] =	"Nokia";			//uszkodzone-nokia-51002
+    map_catnames_for_catid[51003] =	"Sagem";			//uszkodzone-sagem-51003
+    map_catnames_for_catid[51004] =	"Samsung";			//uszkodzone-samsung-51004
+    map_catnames_for_catid[55833] =	"Sharp";			//uszkodzone-sharp-55833
+    map_catnames_for_catid[51005] =	"Siemens";			//uszkodzone-siemens-51005
+    map_catnames_for_catid[51006] =	"Ericsson";		//uszkodzone-sony-ericsson-51006
+    map_catnames_for_catid[51007] =	"Inne modele";		//uszkodzone-inne modele
+
+SELECT * from `aukcje_zakonczone165` WHERE 
+`s_it_category_id` = 170
+OR `s_it_category_id` = 85889
+OR `s_it_category_id` = 4937
+OR `s_it_category_id` = 75538
+OR `s_it_category_id` = 16619
+OR `s_it_category_id` = 14432
+OR `s_it_category_id` = 4976
+OR `s_it_category_id` = 70581
+OR `s_it_category_id` = 5006
+OR `s_it_category_id` = 322
+OR `s_it_category_id` = 5015
+OR `s_it_category_id` = 5021
+OR `s_it_category_id` = 121187
+OR `s_it_category_id` = 5045
+OR `s_it_category_id` = 75557
+OR `s_it_category_id` = 75557
+OR `s_it_category_id` = 52426
+OR `s_it_category_id` = 70569
+OR `s_it_category_id` = 51000
+OR `s_it_category_id` = 51001
+OR `s_it_category_id` = 51002
+OR `s_it_category_id` = 51003
+OR `s_it_category_id` = 51004
+OR `s_it_category_id` = 55833
+OR `s_it_category_id` = 51005
+OR `s_it_category_id` = 51006
+OR `s_it_category_id` = 51007
+
+/* TABLETY */
+    map_catnames_for_catid[121224] =	"Inni producenci";			//Tablety  ›  Urządzenia  ›  Inni producenci
+
+SELECT * from `aukcje_zakonczone121202` WHERE 
+`s_it_category_id` = 121224
+	
+/* LAPTOPY */
+    map_catnames_for_catid[4180] =	"Uszkodzone";			//laptopy-uszkodzone-4180
+    map_catnames_for_catid[4181] =	"Pozostałe";			//laptopy-pozostale-4181
+	
+SELECT * from `aukcje_zakonczone491` WHERE 
+`s_it_category_id` = 4180
+OR `s_it_category_id` = 4181
+
+-----
+
+nie starsze niż 3 miesiące
+
+SELECT `uid`, `s_it_category_id`, avg(s_it_buy_now_price), count(*) as count  FROM `aukcje_zakonczone165` WHERE `s_it_category_id` IN (SELECT DISTINCT `s_it_category_id` FROM `aukcje_zakonczone165`) AND `uid` IN (SELECT DISTINCT `uid` FROM `aukcje_zakonczone165`) AND `unixtime` >= (UNIX_TIMESTAMP(now())-7257600) group by `uid`, `s_it_category_id` order by count DESC LIMIT 10000
+
+z count > 200
+nie starsze niz 3 mies:
+
+SELECT `uid`, `s_it_category_id`, avg(s_it_buy_now_price), count(*) as count  FROM `aukcje_zakonczone165` WHERE `s_it_category_id` IN (SELECT DISTINCT `s_it_category_id` FROM `aukcje_zakonczone165`) AND `uid` IN (SELECT DISTINCT `uid` FROM `aukcje_zakonczone165`) AND `unixtime` >= (UNIX_TIMESTAMP(now())-7257600) GROUP BY `uid`, `s_it_category_id` HAVING count(*) > 200 ORDER BY count DESC LIMIT 10000
+
+ZLICZENIE TEGO CO WYPISUJE:
+
+SELECT SUM(count) FROM (SELECT `uid`, `s_it_category_id`, avg(s_it_buy_now_price), count(*) as count  FROM `aukcje_zakonczone165` WHERE `s_it_category_id` IN (SELECT DISTINCT `s_it_category_id` FROM `aukcje_zakonczone165`) AND `uid` IN (SELECT DISTINCT `uid` FROM `aukcje_zakonczone165`) AND `unixtime` >= (UNIX_TIMESTAMP(now())-7257600) group by `uid`, `s_it_category_id` having count(*) > 200 order by count DESC LIMIT 10000) as temp
+
+---- PODWÓJNE REKORDY:
+
+SELECT `id` FROM `misc` group by `uid`, `s_it_id` having count(*) > 1 LIMIT 10000
+
+---- SZUKANIE SPAMERÓW ITD:
+
+[ SELECT `it_seller_login`, count(*) as count FROM `misc` group by `it_seller_login` having count(*) > 20 order by count DESC ]
+
+truncate awapi_ded_LoginsBanned, potem:
+
+INSERT INTO awapi_ded_LoginsBanned (it_seller_login)
+SELECT `it_seller_login` FROM `misc` group by `it_seller_login` having count(*) > 20 order by count(*) DESC

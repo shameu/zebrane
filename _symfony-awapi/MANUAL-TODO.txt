@@ -1,0 +1,3 @@
+http://symfony.com/doc/current/cookbook/controller/error_pages.html
+http://symfony.com/doc/current/cookbook/controller/service.html
+http://symfony.com/doc/current/book/templating.html - do TWIGA!

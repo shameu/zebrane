@@ -1,0 +1,40 @@
+CIT/A
+
+<h1>
+	<h2>
+		<h3>
+		
+		<strong> - pogrubienie zamiast <b>
+		
+http://youtu.be/W1A6_03BpWc?t=33m57s
+
+Linkowanie:
+	wymiana linkami
+	http://www.cezzy.pl/ ranking katalogów (onet.pl, wp.pl, di
+	tekst odnoœnika anchor tekst
+	
+------------
+
+Bienias:
+
+frameworki bootstrap foundation
+konto reseller
+noa - co chce osi¹gn¹æ klient t¹ stron¹
+black seo
+white seo
+<a href="link">anchor tekst</a>
+
+timecamp - wykres efektów
+
+umowa o dzie³o - rozliczenie za strony
+przenosimy prawa autorkie i p³acimy 50% podatku - 8% zamist 19%
+
+joomla 3.0 na jakim frameworku responsive design - bootstrap
+
+magneto
+
+wordpress
+
+----------
+
+emphasis - akcent, podkreślenie

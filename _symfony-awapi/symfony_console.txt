@@ -1,0 +1,184 @@
+/* Tworzenie Bundle */
+php app/console generate:bundle --namespace=AWAPI/miscBundle --format=yml
+
+/* Tworzenie Entity */
+php app/console generate:doctrine:entity --entity=NAUKAMySQLBundle:Ocena
+
+/* How to generate Entities from an Existing Database */
+http://symfony.com/doc/current/cookbook/doctrine/reverse_engineering.html
+
+php app/console doctrine:mapping:convert yml ./src/AWAPI/StronaBundle/Resources/config/doctrine/metadata/orm --from-database --force
+php app/console doctrine:mapping:import AWAPIStronaBundle yml
+php app/console doctrine:generate:entities AWAPIStronaBundle
+
+	/* Tworzenie Doctrine Entities (Uzupełnianie o metody get/set w pliku klasy w Entities - również łączenie tabel) */
+	php app/console doctrine:generate:entities AWAPI/StronaBundle/Entity
+
+	/* Tworzenie tabeli z Doctrine Entities - dodaje pola (też do łączenia tabel) */
+	php app/console doctrine:schema:update --force
+	php app/console doctrine:schema:update --dump-sql /* wyświetla sql które zmieniają bazę danych */
+
+		/* w wapi gówne nie dodawały pól do łączenia tabel (do entities i do bazy) - najpierw usunalem entities pozostałych tabel sql (aukcje_zakonczone165 etc.) potem katalog StronaBundle/Resources/doctrine i komenda zadziałała */
+
+/* Tworzenie formularzy */
+php app/console doctrine:generate:form AWAPIStronaBundle:Kontakt
+
+/* Clear your cache */
+php app/console cache:clear 						[Clearing the cache for the dev environment with debug true]
+php app/console cache:clear	--no-debug 				[Clearing the cache for the dev environment with debug false]
+php app/console cache:clear --env=prod				[Clearing the cache for the prod environment with debug true]
+php app/console cache:clear --env=prod  --no-debug 	[Clearing the cache for the prod environment with debug false]
+chmod -R 777 app/cache/
+
+/* Remove the AcmeDemoBundle in a Symfony2 project */
+http://blog.quadspot.de/wordpress/symfony2/remove-acmedemobundle-in-a-symfony2-project
+
+/* Tworzenie repozytorium */
+usunięcie katalogu "StronaBundle/Resources/doctrine"
+w wybranym entity dopisek przed deklaracją klasy:
+/**
+ * @ORM\Entity(repositoryClass="AWAPI\StronaBundle\Repository\MiscRepository")
+ */
+ 
+/* Błąd No identifier/primary key specified for Entity 'AWAPI\StronaBundle\Entity\Misc'. Every Entity must have an identifier/primary key. */ - u mnie nie było wymagane
+w entity pola protected a nie private!
+
+/* Przy entity stworzonym z istniejącej bazy i używaniu Repository -  * @ORM\Entity(repositoryClass="AWAPI\StronaBundle\Repository\MiscRepository") */
+- usunięcie doctrine
+- przerobienie entities z nazwami zmiennych "protected $uid_avg_price;" - takimi nazwami jak w bazie i uzupełnieniu "* @ORM\Column(type="float")" itd.
+- php app/console doctrine:generate:entities AWAPI/StronaBundle/Entity/Misc
+w Repository odwołanie do pól w bazie "show.uidAvgPrice" - tak jakby do getUidAvgPrice tylko bez get i pierwsza litera z małej (nie wymagane chyba)
+
+MISC entity:
+ 
+<?php
+
+namespace AWAPI\StronaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="misc")
+ * @ORM\Entity(repositoryClass="AWAPI\StronaBundle\Repository\MiscRepository")
+ */
+
+class Misc
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $id_subs;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    protected $uid;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    protected $uid_avg_price;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $uid_avg_price_count;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    protected $unixtime;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    protected $s_it_id;
+
+    /**
+     * @ORM\Column(type="string", length=57)
+     */
+    protected $s_it_name;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    protected $s_it_buy_now_price;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    protected $s_it_ending_time;
+
+    /**
+     * @ORM\Column(type="string", length=51)
+     */
+    protected $s_it_city;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $s_it_state;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $it_hit_count;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $s_it_category_id;
+
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    protected $it_seller_id;
+
+    /**
+     * @ORM\Column(type="string", length=51)
+     */
+    protected $it_seller_login;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $it_seller_rating;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $it_quantity;
+
+    /**
+     * @ORM\Column(type="string", length=1)
+     */
+    protected $stan;
+
+/* KIEDY UŻYWAĆ "$ php app/console assets:install web" ? lekcja 6 youtube?
+ * FIXTURES - dodawnie szybkie do bazy! ocb?
+ */
+ 
+/* błąd: No encoder has been configured for account "AWAPI\UserBundle\Entity\User". */
+rozwiązanie:
+
+# app/config/security.yml
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] 
+				
+/* Sprawdzanie całej tablicy routingu - pokazuje dokładnie jakie adresy możemy odpalić
+ */
+php app/console router:debug

@@ -1,0 +1,117 @@
+/*****/ GIT
+http://git-scm.com/book/en/Getting-Started-First-Time-Git-Setup
+
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+$ git config --global core.editor "'D:/Program Files/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin"
+
+$ git config --global merge.tool vimdiff - domyœlnie ja zrobi³em [http://stackoverflow.com/questions/10713925/git-mergetool-winmerge], czyli:
+
+[diff]
+    tool = winmerge
+[difftool "winmerge"]
+    cmd = c:/path/to/winmergeu.exe -e -u -x -wl -wr -dl "base" -dr "mine" \"$LOCAL\" \"$REMOTE\"
+	
+---
+
+git config --list
+git config user.name
+
+git init
+git status
+
+git add plik.txt
+git add *.txt
+git add . -> dodaje wszystkie pliki!! nie u¿ywaæ
+
+//git add dodaje pliki do listy tych, które ma œledziæ
+//git add równie¿ dodaje modyfikowane pliki do listy do commita
+
+git commit -m 'initial project version'
+git commit -a -m 'initial project version' 
+//-a dodaje wszystkie pliki do listy do commita, mo¿na je po kolei pododwaæ "git add..." albo tak
+
+gitk //gitgui
+
+---
+
+git clone https://github.com/shameu/test.git
+git clone https://github.com/shameu/test.git innanazwa
+
+---
+pliki not staged
+git add .
+pliki do commita
+
+git diff 			//pokazuje zmiany w plikach
+git diff --cached 	//pokazuje zmiany w plikach ktore zosta³y "staged" - dodane 
+git diff --staged 	//pokazuje zmiany w plikach ktore zosta³y "staged" - dodane 
+
+---
+
+git rm plik.txt - usuwa plik z katalogu na sta³e
+git rm -f plik.txt - usuwa plik z katalogu na sta³e "-f" w przypadku, gdy plik nie by³ nigdy zcommitowany
+git rm --cached plik.txt - usuwa plik z listy œledzonych
+
+git mv zxc.txt zxc - zmienia nazwe pliku
+
+---
+
+git log
+git log -p
+git log -2 
+
+---
+
+git commit --amend -m 'costam' //nadpisuje ostatni commit
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+  
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+---
+
+git remote
+git remote -v
+git remote add test https://github.com/shameu/test.git
+git remote show
+git remote rename test test2
+git remot rm test2
+  
+---
+
+git push - upload
+git push origin master
+
+git pull - download
+get fetch origin?
+
+[http://stackoverflow.com/questions/292357/whats-the-difference-between-git-pull-and-git-fetch]
+
+When you use pull, Git tries to automatically do your work for you. It is context sensitive, so Git will merge any pulled commits into the branch you are currently working in. pull automatically merges the commits without letting you review them first. If you don’t closely manage your branches you may run into frequent conflicts.
+
+When you fetch, Git gathers any commits from the target branch that do not exist in your current branch and stores them in your local repo. However, it does not merge them with your current branch. This is particularly useful if you need to keep your repo up to date but are working on something that might break if you update your files. To integrate the commits into your master branch, you use merge.
+
+CZYLI TAK:
+pobieranie na sile z repo: git pull (zastêpuje wszytskie pliki na te z repo)
+pobranie tylko diff z repo: git fetch [origin mo¿na wpisaæ]
+zmiany w repo itd: git diff
+nadpisanie zmian z repo pobranych fetch'em: git merge origin
+
+---
+
+git tag -a v1.4 -m 'my version 1.4'
+git tag
+git show v1.4
+
+---
+
+git branch testing //stworzenie ga³êdzi testing, ale nadal jestesmy w ga³êzi master
+git checkout testing
+
+---
+
+$ git remote origin https://github.com/evelan/testuyjemy.git //tworzenie repo CO TO ROBI!? spradzic

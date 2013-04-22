@@ -1,0 +1,34 @@
+/* USUNIÊCIE POZYCJI Z MISC STARSZYCH NI¯ NP. 2 TYG */
+
+DELETE FROM `misc` WHERE `unixtime` < UNIX_TIMESTAMP()-1209600 //usunie wszystkie pozycje które zosta³y dodane przed 2ma tyg
+reset wartoœci id od 0 - usun¹æ pole id, potem dodaæ na pocz¹tek z wartoœci¹ "auto_increment"
+
+/* TWORZENIE TABELI Z EMAILAMI U¯YTKOWNIKÓW DO NEWSLETTERA */
+
+CREATE TABLE  `symfony2`.`taniok_newsletter_users` (
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+`email` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_polish_ci NOT NULL ,
+`active` BOOL NOT NULL ,
+PRIMARY KEY (  `id` )
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_polish_ci;
+
+UZUPE£NIANIE TABELI O ADRESY EMAIL
+
+1) INSERT INTO `taniok_newsletter_users` (`email`)
+(SELECT `email` FROM `user` WHERE 1=1)
+
+2) UPDATE `taniok_newsletter_users` SET `active` = 1 WHERE 1=1
+
+/* TWORZENIE TABELI Z TREŒCI¥ MAILA DO U¯YTKOWNIKÓW */
+
+CREATE TABLE  `symfony2`.`taniok_newsletter_content` (
+`subject` VARCHAR( 1000 ) NOT NULL ,
+`text` VARCHAR( 1000000 ) NOT NULL
+) ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_polish_ci;
+
+/* ZNAJDOWANIE POZYCJI KTÓRE S¥ W `SUBS` A NIE MA W `GG_USERS_SUBS` ITD;
+select a.id, b.id_subs, a.cat_name from subs a left join gg_users_subs b on a.id=b.id_subs order by b.id_subs;
+select a.id, b.id_subs, a.cat_name from subs a right join gg_users_subs b on a.id=b.id_subs where a.id is null;
+
+/* le wstawione dane do subs
+select * from subs where cat_position < 1 or words_size < 1 or words_required < 1 or word1 = '' or max_price < 1;

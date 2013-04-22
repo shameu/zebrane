@@ -1,0 +1,289 @@
+---- Wy³¹czenie cache w twigu:
+w config.yml w czêœci twiga:
+    cache: false
+
+---- korzystanie z "prefix:   /"
+zakomentowaæ "prefix:   /" w routing_dev.yml w app/Config...
+	
+----routing.yml
+
+AcmeHelloBundle_hi:
+    pattern: /hi/{name}
+    defaults: { _controller: AcmeHelloBundle:Default:hi, color:green }
+	requirements:
+      id: \d+
+	
+œcie¿ka do bundla:
+	AcmeHelloBundle
+kontroller:
+	Default
+funkcja hiAction !!!
+
+----DefaultConstroller.php
+-- na górze plików .php:
+// src/Acme/TestBundle/AcmeTestBundle.php
+
+namespace Acme\HelloBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response; //dla "return new Response("
+
+public function hiAction($name, $color, $foo=null) //$foo bez "= null" nie mo¿na - nie jest zarejestrowana w routerze
+{
+	//'AcmeHelloBundle:Default:index.html.twig' = path/to/BundleName/+Resources/views+/ControllerName/TemplateName
+	
+	//return $this->render('AcmeHelloBundle:Default:index.html.twig', array('name' => $name));
+	//return $this->render('AcmeHelloBundle:Default/kolejnyKatalog:index.html.twig', array('name' => $name)); //katalog g³êbiej
+	return new Response('<html><body>Hi '.$name.'!</body></html>');
+}
+
+----- Generating URL's
+
+$request = $this->getRequest();
+
+//nazwa do routera:
+$currentRoute = $request->attributes->get('_route');
+wynik:
+AcmeHelloBundle_hi
+
+//œcie¿ka url:
+$currentUrl = $request->getUri();
+
+$currentUrl = $this->get('router')->generate($currentRoute, array('name' => 'alfonso'));
+wynik:
+/_naukaSymfony/web/hi/alfonso
+
+$currentUrl = $this->get('router')->generate('AcmeHelloBundle_hi', array('name' => 'alfonso'), true);
+wynik:
+http://127.0.0.1/_naukaSymfony/web/hi/alfonso
+
+,true na koñcu odpowiada za absolute route, a bez "true" wynik:
+/_naukaSymfony/web/hi/alfonso
+
+-- $request mo¿na przekazaæ w kontrolerze
+
+use Symfony\Component\HttpFoundation\Request;
+
+public function updateAction(Request $request,...)
+{
+
+}
+
+----- przekierowania:
+tak:
+return $this->redirect($this->generateUrl('home'));
+lub:
+use Symfony\Component\HttpFoundation\RedirectResponse;,
+return new RedirectResponse($this->generateUrl('home'));
+
+-- forward: (wprost do kontrolera) - PASEK ADRESU ZOSTAJE JAK PRZED PRZEKIROWANIEM, A TREŒÆ Z INNEGO KONTROLERA I WIDOKU
+tak:
+$response = $this->forward('AcmeHelloBundle:Default:index', array('name' => 'alfonso2'));
+lub:
+$httpKernel = $this->container->get('http_kernel');
+$response = $httpKernel->forward('AcmeHelloBundle:Default:index', array('name' => 'alfonso3'));
+
+return $response;
+
+
+
+
+
+
+
+
+
+-- dostêp do:
+
+$request = $this->getRequest();
+
+$templating = $this->get('templating');
+
+$router = $this->get('router');
+
+$mailer = $this->get('mailer');
+
+listowanie mo¿liwoœci:
+$ php app/console container:debug
+
+
+
+
+
+
+
+
+
+
+
+
+
+----- wyj¹tki:
+throw $this->createNotFoundException('The product does not exist'); //error 404 NOT FOUND
+throw new \Exception('Something went wrong!'); //error 500
+
+
+
+-- sesje:
+$session = $this->getRequest()->getSession();
+
+// store an attribute for reuse during a later user request
+$session->set('foo', 'bar');
+
+// in another controller for another request
+$foo = $session->get('foo');
+
+// use a default value if the key doesn't exist
+$filters = $session->get('filters', 'default value');
+
+
+
+-- informacje z kontrolera do widoku (flash)
+$this->getRequest()->getSession()->setFlash('notice', '1');
+$this->get('session')->setFlash('notice', '2');
+$this->container->get('session')->setFlash('notice', '3');
+
+{{ app.session.flash('notice') }}
+
+
+
+-- ustawianie z kontrolera np. content-responsew twigu:
+$response->headers->set('Content-Type', 'application/json');
+
+
+
+-- pobieranie w kontrolerze informacji ze strony:
+$request = $this->getRequest();
+$request->query->get('page'); // get a $_GET/$_POST parameter
+
+
+
+----- DATABASE + DOCTRINE
+
+stworzenie nowego entity i w katalogu ...Bundle utworzenie folderu Entity, w nim w zale¿noœci:
+- jeœli chcemy nazwaæ Tabelê np. gg_users to tworzymy plik GgUsers.php, tak nazywamy te¿ klasê itd.
+
+!W pliku entity - .php nie dodajemy "?>" koñcz¹cego plik php
+
+<?php
+// src/NAUKA/MySQLBundle/Entity/Student.php
+namespace NAUKA\MySQLBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM; //na pocz¹tku
+
+przed klas¹:
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="student")
+ */
+ 
+!!!przed klas¹, jeœli chcemy osobny plik Repository dla Entity (mo¿na w pliku przechowywaæ funkcje odpowiadaj¹ce za odpytywanie do MySQL, zamiast wszystko w kontrolerze:
+/**
+ * @ORM\Entity(repositoryClass="NAUKA\MySQLBundle\Entity\StudentRepository")
+ * @ORM\Table(name="student")
+ */
+
+w klasie:
+/**
+ * @ORM\Id
+ * @ORM\Column(type="smallint")
+ * @ORM\GeneratedValue(strategy="AUTO") 
+ */
+public $id;
+
+/**
+ * @ORM\Column(type="string", length="100")
+ */
+public $imie;
+
+mo¿liwoœci:
+
+"Strings
+	string (used for shorter strings)
+	text (used for larger strings)
+Numbers
+	integer
+	smallint
+	bigint
+	decimal
+	float
+Dates and Times (use a DateTime object for these fields in PHP)
+	date
+	time
+	datetime
+Other Types
+	boolean
+	object (serialized and stored in a CLOB field)
+	array (serialized and stored in a CLOB field)"
+
+php app/console doctrine:generate:entities NAUKA/MySQLBundle/Entity/Student 
+php app/console doctrine:schema:update --dump-sql
+php app/console doctrine:schema:update --force
+
+----- VALIDATION
+
+jakoœ to dziwnie dziala oO
+groups nie wiem ocb itd.
+
+----- FORM
+
+w formach taniok musi byc plik validation.yml zeby na bank nie przepuszczal pustych pól!
+
+b³¹d: The CSRF token is invalid. Please try to resubmit the form
+rozwi¹zanie:
+$form->bindRequest($request);
+musi byæ po:
+if($request->getMethod() == 'POST')
+
+generowanie Formularza:
+php app/console generate:doctrine:form NAUKAFormBundle:Task
+b³¹d:
+Class NAUKA\FormBundle\Entity\Task is not a valid entity or mapped super class.
+
+rozw? trzeba stworzyæ plik TaskType.php samodzielnie - jeœli entity nie jest generowany poprzez konsole to taki b³¹d chyba jest
+            
+
+--------------------- AWAPI
+
+--- dane u¿ytkownika
+
+$security_context = $this->container->get('security.context');
+if($security_context->isGranted('ROLE_USER'))
+
+//id usera                    
+$id_user = $security_context->getToken()->getUser()->getID(); 
+
+--- cookies
+
+$request = $this->getRequest();
+$cookies = $request->cookies->all();
+
+isset($cookies['users_show']
+
+-
+
+$response = new Response();
+
+$response->headers->setCookie(new Cookie('users_show', "", time() + 99999999));
+
+$response->send();
+
+--- unixtime z wczoraj tej samej pory:
+
+$t = strtotime('today 00:00');
+$unixtime = date("U", $t+3600); //+3600 bo strefa czasowa jest godzina 1 w tyl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,338 @@
+http://stackoverflow.com/questions/2118755/questions-every-good-php-developer-should-be-able-to-answer
+
+<?php
+
+//-----------------------------------
+
+function doSomething( &$arg )
+{
+	$return = $arg; // 3
+    // $return = &$arg; // 4
+    $arg += 1; // $a = 4
+    return $return; // $return = 3
+}
+
+$a = 3;
+$b = doSomething( $a );
+
+echo $a;
+echo '<br />';
+echo $b;
+
+//-----------------------------------
+
+Unix - 			\n 	: new line
+Mac - 			\r 	: carriage return (powrót karetki - carriage to ten el. w maszynie do pisania który wysuwa się)
+Windows, DOS -	\r\n
+
+The only reason to use \r is if you're writing to a character terminal (or more likely a "console window" emulating it) and want the next line you write to overwrite the last one you just wrote (sometimes used for goofy "ascii animation" effects of e.g. progress bars) -- this is getting pretty obsolete in a world of GUIs, though;-).
+
+jednym słowem: stosować \n
+
+$str = "Hello, there.\n\rHow are you?\nThanks for visiting\rTechInterviews";
+$str2 = 'Hello, there.\n\rHow are you?\nThanks for visiting TechInterviews';
+pp(nl2br($str));
+echo '<br />';
+pp(nl2br($str2));
+
+//-----------------------------------
+//Any time you have an array with more than one dimension,
+// complex parsing syntax is required. print "Contents: {$arr[1][2]}" would’ve worked.
+
+$tablica = array(
+	'0' => array(
+		'1' => 'jeden'
+	)
+);
+
+echo print("Zawartosc: $tablica[0]");
+echo '<br />';
+echo print("Zawartosc: {$tablica[0][1]}");
+echo '<br />';
+echo $zmienna = sprintf("Zawartosc: {$tablica[0][1]}");
+echo '<br />';
+// echo "$tablica[0][1]" // błąd
+echo "{$tablica[0][1]}"; // przy wyświetlaniu zawartości tabl. 2-el. i więcej trzeba tablicę okalić {}
+
+//-----------------------------------
+
+^= to xor
+
+//-----------------------------------
+
+In Java Script, What does "1"+2+4 evaluate to?
+124 
+
+In Java Script, What does 2+5+"8" evaluate to?
+78
+
+//-----------------------------------
+
+Which PHP5 function is used to prevent SQL injection in forms based inputs?
+mysql_real_escape_string()
+
+//-----------------------------------
+
+What’s the difference between include and require?
+- It’s how they handle failures. If the file is not found by require(),
+it will cause a fatal error and halt the execution of the script.
+ If the file is not found by include(), a warning will be issued, but execution will continue
+
+ //-----------------------------------
+ PHP hex dec etc.
+ http://php.net/manual/en/language.types.integer.php
+
+decimal     : [1-9][0-9]*
+            | 0
+
+hexadecimal : 0[xX][0-9a-fA-F]+
+
+octal       : 0[0-7]+
+
+binary      : 0b[01]+
+
+//-----------------------------------
+Will comparison of string "10" and integer 11 work in PHP?
+- Yes, internally PHP will cast everything to the integer type, so numbers 10 and 11 will be compared.
+
+$string = '10';
+$int = 10;
+
+if($string == $int) 	// true
+if($string === $int) 	// false
+
+//-----------------------------------
+
+PHP 1995 oficjalna implementacja tworzona przez Zend Technologies
+Twórca Rasmus Lerdorf
+
+The Zend Engine is the internal compiler and runtime engine used by PHP4.
+
+//-----------------------------------
+Register globals:
+This feature has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0.
+
+Zamiast odwoływać się "$_SESSION['username']", można by $username - jeśli RG jest na on i używamy go w skrypcje to
+ktoś podając zmienną w $_GET mógłby ingerować w skrypt
+
+//-----------------------------------
+magic_quotes_gpc:
+This feature has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0.
+
+Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
+Its preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
+
+//-----------------------------------
+T_PAAMAYIM_NEKDOTAYIM error
+
+Its Hebrew for "double colon" ::
+
+List of parser tokens:
+http://docs.php.net/manual/en/tokens.php
+
+//-----------------------------------
+
+Analizator składniowy lub parser – program dokonujący analizy składniowej danych wejściowych w celu określenia ich struktury gramatycznej w związku z określoną gramatyką formalną. Nazwa analizator składniowy podkreśla analogię z analizą składniową stosowaną w gramatyce i językoznawstwie. Analizator składniowy umożliwia przetworzenie tekstu czytelnego dla człowieka w strukturę danych przydatną dla oprogramowania komputera.
+
+//-----------------------------------
+
+<? ?> - Zend Engine support (in php.ini):
+set
+short_open_tag=on
+
+/*I am writing an application in PHP that outputs a printable version of driving directions. It contains some long sentences, 
+and I am a neat freak, and would like to make sure that no line exceeds 50 characters. How do I accomplish that with PHP?
+- On large strings that need to be formatted according to some length specifications, use wordwrap() or chunk_split().*/
+
+//-----------------------------------
+
+/*What’s the difference between htmlentities() and htmlspecialchars()? - htmlspecialchars only takes care of <, >, 
+single quote ‘, double quote " and ampersand.
+htmlentities translates all occurrences of character sequences that have different meaning in HTML.*/
+
+The difference is what gets encoded. The choices are everything (entities) or "special" characters, like ampersand, double and single quotes, less than, and greater than (specialchars).
+
+I prefer to use htmlspecialchars whenever possible.
+
+//-----------------------------------
+
+sha1() - 40 znaków - 160 bit - bezpieczniejszy
+md5() - 32 znaki w systemie 16tkowymm - 128 bit
+crc32() - 10 znaków - 32 bit
+
+/*What’s the difference between md5(), crc32() and sha1() crypto on PHP?
+- The major difference is the length of the hash generated. CRC32 is, evidently, 32 bits,
+while sha1() returns a 128 bit value, and md5() returns a 160 bit value. This is important when avoiding collisions.*/
+
+//First off, depending on the data that you’re encrypting, you might have reasons to store a 32-bit value in the database
+//instead of the 160-bit value to save on space. Second, the more secure the crypto is, the longer is the computation time to deliver the hash value.
+//A high volume site might be significantly slowed down, if frequent md5() generation is required.
+
+//-----------------------------------
+
+Q:7	How can we extract string ‘abc.com ‘ from a string ‘http://info@abc.com’
+using regular expression of PHP?
+A:7	preg_match(“/^http:\/\/.+@(.+)$/”,’http://info@abc.com&#8217;,$found);
+echo $found[1];
+
+//-----------------------------------
+
+Q:11	What are the different tables present in MySQL, which type of
+table is generated when we are creating a table in the following syntax:
+create table employee (eno int(2),ename varchar(10)) ?
+A:11	Total 5 types of tables we can create
+1. MyISAM
+2. Heap
+3. Merge
+4. INNO DB
+5. ISAM
+MyISAM is the default storage engine as of MySQL 3.23 and as a result if
+we do not specify the table name explicitly it will be assigned to the
+default engine.
+
+MyISAM a InnoDB? Który mechanizm składowania danych wybrać, aby było wszystko ok?
+
+Zalety InnoDB
+InnoDB powinno być wykorzystywane wszędzie tam, gdzie integralność danych jest priorytetem
+Jest lepszy tam gdzie występuje duży nacisk na zapisywanie danych do bazy danych ze względu na blokowanie tylko wierszy a nie całej tabeli.
+
+Wady InnoDB
+Z powodu większej dbałości o relacje między tabelami, administrator bazy danych oraz twórca bazy danych muszą więcej czasu przeznaczyć na projektowanie struktury takiej bazy oraz przepływu danych w niej zawartych.
+Wykorzystuje więcej zasobów systemowych do działania, takich jak pamięć RAM.
+Brak indeksowania pełnotekstowego
+
+Zalety MyISAM
+Bazy danych w tym systemie są prostsze do zaprojektowania i stworzenia, w szczególności dla początkujących.
+Ogólnie, jest szybsza ze względu na swoją prostotę i nie zużywa tak wielu zasobów systemów tak jak InnoDB
+Posiada indeksowanie pełnotekstowe
+Ze względu na powyższe indeksy jest szczególnie efektywna gdy istnieje potrzeba intensywnego odczytywania danych z bazy danych
+
+Wady MyISAM
+Brak sprawdzania integralności danych, co zwiększa liczbę problemów dla administratorów baz danych
+Brak wsparcia dla transakcji, które są szczególnie ważne takich systemach bazodanowych jak systemy dla banków, systemy dla korporacji, itp., itd.
+Wolniejsza od InnoDB w przypadku częstego zapisu danych do bazy danych i ich aktualizacji w bazie
+
+Podsumowanie
+Mam nadzieję, że udało mi się przybliżyć Tobie wady i zalety każdego z tych mechanizmów MySQL.
+Jak widać, InnoDB jest przydatne w momencie gdy potrzebujemy aby nasze dane w bazie były jak najlepiej zabezpieczone przed błędami czy awariami, oraz w momencie gdy zależy nam na jak najszybszym zapisywaniu nowych danych do bazy.
+Natomiast, MyISAM jest lepszy przy prostszych projektach takich jak zwykłe strony internetowe, gdzie w zasadzie dane są zapisywane w bazie od czasu do czasu, ale za to o wiele częściej są odczytywane z niej.
+
+//-----------------------------------
+
+aktualne wersje PHP, Apache, MySQL
+
+How can we encrypt and decrypt a data present in a MySQL table
+using MySQL?
+A:20	AES_ENCRYPT () and AES_DECRYPT ()
+
+//-----------------------------------
+
+How can we encrypt the username and password using PHP?
+A:21	The functions in this section perform encryption and decryption, and
+compression and uncompression:
+encryption		decryption
+AES_ENCRYPT()	AES_DECRYPT()
+ENCODE()		DECODE()
+DES_ENCRYPT()	DES_DECRYPT()
+ENCRYPT()		Not available
+MD5()			Not available
+OLD_PASSWORD()	Not available
+PASSWORD()		Not available
+SHA() or SHA1()	Not available
+Not available	UNCOMPRESSED_LENGTH()
+
+//-----------------------------------
+public private...
+
+transient: A transient variable is a variable that may not
+			be serialized. 
+volatile: a variable that might be concurrently modified by multiple
+			threads should be declared volatile. Variables declared to be volatile
+			will not be optimized by the compiler because their value can change at
+			any time.
+
+//-----------------------------------
+
+PHP Errors:
+Notices, Errors, Fatal Errors
+
+//-----------------------------------
+
+strstr vs. stristr
+
+//-----------------------------------
+$second = date(“s”);
+
+s - Sekundy, z zerami wiodącymi
+
+//-----------------------------------
+urlencode and urldecode?
+
+http://stackoverflow.com/questions/14036199/urlencode-urldecode-in-php
+
+//-----------------------------------
+unlink() vs unset()
+
+Unlink is used to delete the file used in the context.
+
+unlink('test.html');
+Unset is used to unset or destroy the variable.
+unset($var);
+If a global variable is attempted to “unset” inside a function, the local variable is destroyed.
+
+//-----------------------------------
+
+Q:36	How can we get the properties (size, type, width, height) of an
+image using PHP image functions?
+A:36	To know the Image type use exif_imagetype () function
+To know the Image size use getimagesize () function
+To know the image width use imagesx () function
+To know the image height use imagesy() function t
+
+Q:37	How can we get the browser properties using PHP?
+A:37	By using 
+$_SERVER['HTTP_USER_AGENT']
+variable. 
+
+Q:38	What is the maximum size of a file that can be uploaded using PHP
+and how can we change this?
+A:38	By default the maximum size is 2MB. and we can change the following
+setup at php.iniupload_max_filesize = 2M
+
+Q:39	How can we increase the execution time of a PHP script?
+A:39	by changing the following setup at php.inimax_execution_time = 30
+; Maximum execution time of each script, in seconds
+
+Q:41	How can we optimize or increase the speed of a MySQL select
+query?
+A:41	
+first of all instead of using select * from table1, use select
+column1, column2, column3.. from table1
+Look for the opportunity to introduce index in the table you are
+querying.
+use limit keyword if you are looking for any specific number of
+rows from the result set.
+
+session_id() returns the session id for the current session.
+
+What is the difference between ereg_replace() and eregi_replace()?
+A:46	eregi_replace() function is identical to ereg_replace() except that
+this ignores case distinction when matching alphabetic
+characters.
+
+is_numeric
+
+E-R diagrams for mysql.
+
+Q:53	List out the predefined classes in PHP?
+A:53	Directory
+stdClass
+__PHP_Incomplete_Class
+exception
+php_user_filter
+
+Q:77	What is the functionality of md5 function in PHP?
+A:77	Calculate the md5 hash of a string. The hash is a 32-character
+hexadecimal number. I use it to generate keys which I use to identify
+users etc. If I add random no techniques to it the md5 generated now
+will be totally different for the same string I am using.
